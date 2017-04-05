@@ -1,0 +1,16 @@
+#!/bin/sh
+case "$1" in
+"win-i386" | "linux-i386")
+	gcc -m32 example.c cco.c $1.S -o $1
+	;;
+"win-amd64" | "linux-amd64")
+	gcc -m64 example.c cco.c $1.S -o $1
+	;;
+*)
+	echo $0: bad option
+	echo Usage:
+	echo "    build target"
+	echo "    target must be win-i386 win-amd64 linux-i386 linux-amd64"
+;;
+esac
+
