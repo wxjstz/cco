@@ -8,7 +8,7 @@ context_init:
     movq    %rsp,%rax
     movq    (%rdi),%rsp
 
-    pushq   $coroutine_entry
+    pushq   $cco_entry
     pushq   $0
     pushq   $0
     pushq   $0

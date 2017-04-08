@@ -17,7 +17,7 @@ context_init:
     push    %ebx
     push    $0
 
-    push    $coroutine_entry
+    push    $cco_entry
     push    $0
     push    $0
     push    $0

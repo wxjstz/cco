@@ -5,23 +5,24 @@ This is a simple coroutine library.
 ## Interface
 
 ```c
-typedef struct coroutine coroutine;
-typedef void (*coroutine_handle)(coroutine *co,void *arg);
+typedef struct cco cco;
 
-struct coroutine
+typedef void (*cco_handle)(cco *co,void *arg);
+
+struct cco
 {	
 	void *stack;
 	void *sp;
 	void *arg;
 	
 	int  ret;
-	coroutine_handle entry;
+	cco_handle entry;
 };
 
-coroutine* coroutine_create (coroutine_handle entry,long stack_size,void *arg);
-int 	   coroutine_resume (coroutine *co);
-void	   coroutine_yield	(coroutine *co);
-void	   coroutine_release(coroutine *co);
+cco* cco_create (cco_handle entry,long stack_size,void *arg);
+int  cco_resume (cco *co);
+void cco_yield	(cco *co);
+void cco_release(cco *co);
 ```
 
 ## Build

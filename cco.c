@@ -18,9 +18,9 @@ void context_init(void **sp,void *co);
     #error "you have to define `machine_word_type` for you target"
 #endif
 
-coroutine* coroutine_create(coroutine_handle entry,long stack_size,void *arg)
+cco* cco_create(cco_handle entry,long stack_size,void *arg)
 {
-    coroutine *co = malloc(sizeof(*co));
+    cco *co = malloc(sizeof(*co));
     if(co)
     {
         void *stack_top;
@@ -44,20 +44,20 @@ coroutine* coroutine_create(coroutine_handle entry,long stack_size,void *arg)
     return NULL;
 }
 
-void coroutine_entry(coroutine *co)
+void cco_entry(cco *co)
 {
     co->entry(co,co->arg);
     co->ret = 0;
     context_switch(&(co->sp));
 }
 
-int coroutine_resume(coroutine *co)
+int cco_resume(cco *co)
 {
     context_switch(&(co->sp));
     return co->ret;
 }
 
-void coroutine_yield(coroutine *co)
+void cco_yield(cco *co)
 {
     co->ret = 1;
     context_switch(&(co->sp));
@@ -65,7 +65,7 @@ void coroutine_yield(coroutine *co)
 
 
 
-void coroutine_release(coroutine *co)
+void cco_release(cco *co)
 {
     free(co->stack);
     free(co);
